@@ -169,6 +169,31 @@ SlideCrafter AI is fully open-sourced under your GitHub repository. Feel free to
 
 ---
 
+## 🌐 Deployment to Vercel
+
+Since the frontend application is located in the `web/` subfolder, follow these specific configurations during Vercel deployment to ensure a zero-config, highly-optimized build:
+
+### ⚡ Option 1: Vercel Dashboard (Easiest)
+1. Go to your **[Vercel Dashboard](https://vercel.com/dashboard)** and click **Add New** > **Project**.
+2. Import your GitHub repository: `syedmahi-dev/slidecrafter-ai`.
+3. In the **Configure Project** window, modify the following parameters:
+    *   **Root Directory:** Click *Edit* and select **`web`** (Vercel will automatically detect Vite).
+    *   **Framework Preset:** **Vite** (automatically selected).
+    *   **Build Command:** `npm run build` (or `tsc -b && vite build` which runs automatically).
+    *   **Output Directory:** `dist` (automatically detected).
+4. Leave the *Environment Variables* blank (or populate custom API defaults if desired).
+5. Click **Deploy**. Vercel will build and host your SlideCrafter AI platform with a secure SSL link in less than 30 seconds!
+
+### 💻 Option 2: Vercel CLI
+If you have the Vercel CLI installed locally, run:
+```bash
+# From the root directory, navigate to the web workspace and deploy:
+cd web
+vercel
+```
+
+---
+
 ## 📝 License
 
 This project is open-sourced under the **MIT License**. See the [LICENSE](file:///d:/PPtGen/LICENSE) file for the full copyright and permission terms.
