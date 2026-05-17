@@ -167,13 +167,7 @@ function addAccentBar(s: any, x: number, y: number, h: number, color: string) {
   s.addShape('rect', { x, y, w: 0.07, h, fill: { color } });
 }
 
-// Shadow-depth card (3-layer visual stack)
-function addCard(s: any, x: number, y: number, w: number, h: number, fillColor: string, radius: number = 0.18) {
-  // Shadow layer
-  s.addShape('roundRect', { x: x + 0.04, y: y + 0.06, w, h, fill: { color: '000000' }, rectRadius: radius, transparency: 88 });
-  // Main card
-  s.addShape('roundRect', { x, y, w, h, fill: { color: fillColor }, rectRadius: radius });
-}
+
 
 // Dot-grid texture for depth
 function addDotGrid(s: any, x: number, y: number, w: number, h: number, color: string) {
@@ -584,7 +578,6 @@ function buildImageTextSlide(s: any, slide: any, ctx: any) {
 
   const isEven = (slide.index || 1) % 2 === 0;
   const imgX = isEven ? 0 : 6.83;
-  const txtX = isEven ? 6.83 : 0;
 
   // Full-height image side (FIXED: use path: imgUrl)
   if (ctx.imgUrl) {

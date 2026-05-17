@@ -29,36 +29,7 @@ function GithubIcon({ className }: { className?: string }) {
   );
 }
 
-function LinearProgress({ percent, status }: { percent: number; status: string }) {
-  const fillWidth = Math.min(100, Math.max(0, percent));
-  return (
-    <div className="w-full flex flex-col items-center gap-6 py-6 px-4">
-      <div className="w-full max-w-md relative">
-        <div className="flex justify-between items-end mb-3">
-          <span className="text-sm font-semibold text-text">{status}</span>
-          <span className="text-xl font-black text-accent">{Math.round(percent)}%</span>
-        </div>
-        
-        {/* Progress Track */}
-        <div className="h-2 w-full bg-surface border border-border rounded-full overflow-hidden shadow-inner relative">
-          {/* Progress Fill */}
-          <div 
-            className="h-full bg-accent rounded-full relative"
-            style={{ 
-              width: `${fillWidth}%`, 
-              transition: 'width 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: '0 0 10px var(--color-accent-glow)' 
-            }}
-          >
-            {/* Subtle shimmering highlight */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent w-full -translate-x-full animate-[shimmer_2s_infinite]" />
-          </div>
-        </div>
-      </div>
-      <p className="text-xs text-text-muted">Engineering your presentation architecture...</p>
-    </div>
-  );
-}
+
 
 function App() {
   const containerRef = useRef<HTMLDivElement>(null);

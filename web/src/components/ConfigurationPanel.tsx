@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Presentation, Key, SlidersHorizontal, Sparkles, Layers, GitFork, Cpu } from 'lucide-react';
 import { GITHUB_MODELS, type GitHubModelId } from '../lib/github-models';
 
@@ -22,7 +22,7 @@ export function ConfigurationPanel({ onGenerate, isGenerating = false }: Configu
   const [apiKey, setApiKey] = useState(() => localStorage.getItem('slidecraft_api_key') || '');
   const [engine, setEngine] = useState<'pptxgenjs' | 'python-pptx'>('pptxgenjs');
   const [provider, setProvider] = useState<'gemini' | 'github'>('gemini');
-  const [githubModel, setGithubModel] = useState<GitHubModelId>('gpt-4o-mini');
+  const [githubModel, setGithubModel] = useState<GitHubModelId>('openai/gpt-4o-mini');
 
   useEffect(() => {
     localStorage.setItem('slidecraft_api_key', apiKey);

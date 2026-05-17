@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Download, Sparkles } from 'lucide-react';
 
 interface PreviewPaneProps {
@@ -57,7 +57,7 @@ function CSSBarChart({ data, primaryColor, secondaryColor, accentColor }: {
 }) {
   const maxVal = Math.max(...data.map((d: any) => Number(d.value) || 0), 1);
   const colors = [accentColor, primaryColor, secondaryColor, '#6366F1', '#10B981', '#EC4899', '#8B5CF6', '#06B6D4'];
-  const total = data.reduce((sum: number, d: any) => sum + (Number(d.value) || 0), 0);
+
 
   return (
     <div className="flex flex-col h-full w-full px-4 pb-2 pt-3">
@@ -233,7 +233,7 @@ export function PreviewPane({ slideData, onDownload, isDownloading }: PreviewPan
       {/* Slide Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {slideData.slides.map((slide: any, idx: number) => {
-          const isDark = slide.type === 'title' || slide.type === 'closing' || slide.type === 'quote' || slide.type === 'stats';
+
           const slideNum = idx + 1;
 
           // ─ TITLE SLIDE ─
