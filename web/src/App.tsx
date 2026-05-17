@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Presentation } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 import { ConfigurationPanel, type GenerateConfig } from './components/ConfigurationPanel';
 import { PreviewPane } from './components/PreviewPane';
 import { LoadingOverlay } from './components/LoadingOverlay';
@@ -144,10 +145,12 @@ function App() {
   };
 
   return (
-    <div ref={containerRef} className="min-h-screen p-6 md:p-12 lg:p-24 flex flex-col bg-background text-text selection:bg-accent selection:text-white relative overflow-hidden">
-      {/* Background ambient glow */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
+    <>
+      <Analytics />
+      <div ref={containerRef} className="min-h-screen p-6 md:p-12 lg:p-24 flex flex-col bg-background text-text selection:bg-accent selection:text-white relative overflow-hidden">
+        {/* Background ambient glow */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
 
       <header className="hero-content flex items-center justify-between w-full max-w-5xl mx-auto mb-16 relative z-10">
         <div className="flex items-center gap-4">
@@ -205,6 +208,7 @@ function App() {
         Built by <a href="https://github.com/syedmahi-dev/slidecrafter-ai" target="_blank" rel="noopener noreferrer" className="font-bold text-accent hover:underline">syedmahi-dev</a>
       </footer>
     </div>
+    </>
   );
 }
 
