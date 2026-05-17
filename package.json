@@ -1,7 +1,8 @@
 {
-  "name": "gemini-pptx-generator",
+  "name": "slidecrafter-ai",
   "version": "1.0.0",
-  "description": "AI-powered PowerPoint generator using Gemini 2.5 Flash + pptxgenjs",
+  "description": "SlideCrafter AI — Premium agency-grade presentation persuasion architecture generator powered by Gemini & GitHub Models.",
+  "license": "MIT",
   "main": "cli/generate.js",
   "scripts": {
     "generate": "node cli/generate.js",

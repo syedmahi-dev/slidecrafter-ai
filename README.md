@@ -166,3 +166,11 @@ Vite will start the server, typically serving the application at **`http://local
 
 ### 3. Open-Source Attribution
 SlideCrafter AI is fully open-sourced under your GitHub repository. Feel free to contribute, add new slide themes, or expand the layout builders inside `engine-js.ts`!
+
+---
+
+## 📝 License
+
+This project is open-sourced under the **MIT License**. See the [LICENSE](file:///d:/PPtGen/LICENSE) file for the full copyright and permission terms.
+
+Copyright (c) 2026 Syed Mahi. All rights reserved.

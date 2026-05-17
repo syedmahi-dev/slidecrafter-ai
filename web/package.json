@@ -1,7 +1,9 @@
 {
-  "name": "web",
+  "name": "slidecrafter-ai-web",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Frontend web client for SlideCrafter AI — premium open-source presentation engine.",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
