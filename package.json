@@ -1,0 +1,15 @@
+{
+  "name": "gemini-pptx-generator",
+  "version": "1.0.0",
+  "description": "AI-powered PowerPoint generator using Gemini 2.5 Flash + pptxgenjs",
+  "main": "cli/generate.js",
+  "scripts": {
+    "generate": "node cli/generate.js",
+    "example": "node cli/generate.js --topic \"Introduction to AI\" --slides 8"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "node-fetch": "^3.0.0",
+    "pptxgenjs": "^3.12.0"
+  }
+}
