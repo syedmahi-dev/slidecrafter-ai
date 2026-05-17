@@ -170,7 +170,7 @@ function App() {
           href="https://github.com/syedmahi-dev/slidecrafter-ai"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-4 py-2 bg-surface hover:bg-surface-hover text-text hover:text-accent rounded-xl border border-border shadow-md transition-all duration-300 group"
+          className="flex items-center gap-2 px-4 py-2 bg-surface hover:bg-gray-50 text-text hover:text-accent rounded-xl border border-border shadow-md transition-all duration-300 group"
           title="View GitHub Repository"
         >
           <Github className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
@@ -207,7 +207,7 @@ function App() {
       </main>
       
       <footer className="hero-content w-full max-w-5xl mx-auto mt-24 mb-8 text-center text-sm font-medium text-text-muted">
-        Built by <span className="font-bold text-accent">syedmahi-dev</span>
+        Built by <a href="https://github.com/syedmahi-dev/slidecrafter-ai" target="_blank" rel="noopener noreferrer" className="font-bold text-accent hover:underline">syedmahi-dev</a>
       </footer>
     </div>
   );
