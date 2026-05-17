@@ -1,4 +1,5 @@
 import { SYSTEM_PROMPT } from './gemini';
+import { THEME_PRESETS } from './theme-presets';
 
 // Available models via GitHub Models API (included with GitHub Copilot)
 // Full catalog: GET https://models.github.ai/catalog/models
@@ -29,11 +30,25 @@ export async function generateSlideContentGitHub(
   token: string,
   topic: string,
   slideCount: number = 8,
-  model: GitHubModelId = 'openai/gpt-4.1-mini'
+  model: GitHubModelId = 'openai/gpt-4.1-mini',
+  themePreset: string = 'auto'
 ) {
   const API_URL = 'https://models.github.ai/inference/chat/completions';
 
+  let styleGuideline = '';
+  if (themePreset !== 'auto') {
+    const preset = THEME_PRESETS.find(p => p.id === themePreset);
+    if (preset) {
+      styleGuideline = `\nSTYLING REQUIREMENT: You MUST strictly use the "${preset.name}" preset theme.
+Set primaryColor to exactly "${preset.primary}", secondaryColor to exactly "${preset.secondary}", and accentColor to exactly "${preset.accent}".
+Set fontTitle to exactly "${preset.fontTitle}" and fontBody to exactly "${preset.fontBody}".
+Set darkBackground to exactly ${preset.darkBackground ?? true}.
+Do NOT select any other colors or fonts under any circumstances.`;
+    }
+  }
+
   const userPrompt = `Generate a ${slideCount}-slide presentation on the topic: "${topic}"
+${styleGuideline}
 
 Apply the NARRATIVE ARC and SLIDE TYPE INTELLIGENCE from the system prompt.
 Determine the deck type from the topic (pitch/research/product/corporate/investor) and follow its arc.

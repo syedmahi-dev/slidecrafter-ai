@@ -1,3 +1,5 @@
+import { THEME_PRESETS } from './theme-presets';
+
 export const SYSTEM_PROMPT = `You are the silent creative director behind the world's most consequential presentations —
 the ones that closed billion-dollar deals, launched category-defining products, and moved markets.
 You do not produce slides. You engineer persuasion architectures.
@@ -128,11 +130,25 @@ QUALITY GATES (verify before outputting JSON)
 export async function generateSlideContent(
   apiKey: string,
   topic: string,
-  slideCount: number = 8
+  slideCount: number = 8,
+  themePreset: string = 'auto'
 ) {
   const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
+  let styleGuideline = '';
+  if (themePreset !== 'auto') {
+    const preset = THEME_PRESETS.find(p => p.id === themePreset);
+    if (preset) {
+      styleGuideline = `\nSTYLING REQUIREMENT: You MUST strictly use the "${preset.name}" preset theme.
+Set primaryColor to exactly "${preset.primary}", secondaryColor to exactly "${preset.secondary}", and accentColor to exactly "${preset.accent}".
+Set fontTitle to exactly "${preset.fontTitle}" and fontBody to exactly "${preset.fontBody}".
+Set darkBackground to exactly ${preset.darkBackground ?? true}.
+Do NOT select any other colors or fonts under any circumstances.`;
+    }
+  }
+
   const userPrompt = `Generate a ${slideCount}-slide presentation on the topic: "${topic}"
+${styleGuideline}
 
 Apply the NARRATIVE ARC and SLIDE TYPE INTELLIGENCE from the system prompt.
 Determine the deck type from the topic (pitch/research/product/corporate/investor) and follow its arc.

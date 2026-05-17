@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Presentation, Key, SlidersHorizontal, Sparkles, Layers, GitFork, Cpu } from 'lucide-react';
+import { Presentation, Key, SlidersHorizontal, Sparkles, Layers, GitFork, Cpu, Palette } from 'lucide-react';
 import { GITHUB_MODELS, type GitHubModelId } from '../lib/github-models';
+import { THEME_PRESETS } from '../lib/theme-presets';
 
 export interface GenerateConfig {
   topic: string;
@@ -9,6 +10,7 @@ export interface GenerateConfig {
   engine: 'pptxgenjs' | 'python-pptx';
   provider: 'gemini' | 'github';
   githubModel: GitHubModelId;
+  themePreset: string;
 }
 
 interface ConfigurationPanelProps {
@@ -23,6 +25,7 @@ export function ConfigurationPanel({ onGenerate, isGenerating = false }: Configu
   const [engine, setEngine] = useState<'pptxgenjs' | 'python-pptx'>('pptxgenjs');
   const [provider, setProvider] = useState<'gemini' | 'github'>('gemini');
   const [githubModel, setGithubModel] = useState<GitHubModelId>('openai/gpt-4o-mini');
+  const [themePreset, setThemePreset] = useState('auto');
 
   useEffect(() => {
     localStorage.setItem('slidecraft_api_key', apiKey);
@@ -30,7 +33,7 @@ export function ConfigurationPanel({ onGenerate, isGenerating = false }: Configu
 
   const handleGenerate = () => {
     if (!topic || !apiKey) return;
-    onGenerate({ topic, slides, apiKey, engine, provider, githubModel });
+    onGenerate({ topic, slides, apiKey, engine, provider, githubModel, themePreset });
   };
 
   return (
@@ -147,6 +150,56 @@ export function ConfigurationPanel({ onGenerate, isGenerating = false }: Configu
             })}
           </div>
         )}
+      </div>
+
+      {/* 2.5. Creative Style Preset Selection */}
+      <div className="glass-panel md:col-span-12 flex flex-col gap-5 p-8 bento-item">
+        <div className="flex items-center gap-3 mb-1">
+          <Palette className="w-6 h-6 text-accent" />
+          <h2 className="text-xl font-bold text-text">Visual Style Preset</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {THEME_PRESETS.map((preset) => {
+            const isSelected = themePreset === preset.id;
+            return (
+              <label 
+                key={preset.id}
+                className={`flex flex-col p-5 rounded-xl border cursor-pointer transition-all hover:scale-[1.01] ${isSelected ? 'border-accent bg-accent/10 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'border-border hover:border-accent/50 bg-background/50'}`}
+              >
+                <input 
+                  type="radio" 
+                  name="themePreset" 
+                  value={preset.id}
+                  checked={isSelected}
+                  onChange={() => setThemePreset(preset.id)}
+                  className="sr-only"
+                />
+                <div className="flex justify-between items-center mb-3">
+                  <span className={`font-bold text-sm transition-colors ${isSelected ? 'text-accent' : 'text-text'}`}>
+                    {preset.name}
+                  </span>
+                  
+                  {/* Small preview color dots */}
+                  <div className="flex gap-1.5">
+                    {preset.colors ? (
+                      preset.colors.map((c, i) => (
+                        <div key={i} className="w-3 h-3 rounded-full border border-border/30" style={{ backgroundColor: c }} />
+                      ))
+                    ) : (
+                      <>
+                        <div className="w-3 h-3 rounded-full border border-border/30" style={{ backgroundColor: preset.primary }} />
+                        <div className="w-3 h-3 rounded-full border border-border/30" style={{ backgroundColor: preset.secondary }} />
+                        <div className="w-3 h-3 rounded-full border border-border/30" style={{ backgroundColor: preset.accent }} />
+                      </>
+                    )}
+                  </div>
+                </div>
+                <p className="text-[11px] text-text-muted leading-relaxed font-medium">{preset.description}</p>
+              </label>
+            );
+          })}
+        </div>
       </div>
 
       {/* 3. Configuration & Engine Selector */}

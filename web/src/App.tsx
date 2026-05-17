@@ -59,9 +59,9 @@ function App() {
 
       let data;
       if (config.provider === 'github') {
-        data = await generateSlideContentGitHub(config.apiKey, config.topic, config.slides, config.githubModel);
+        data = await generateSlideContentGitHub(config.apiKey, config.topic, config.slides, config.githubModel, config.themePreset);
       } else {
-        data = await generateSlideContent(config.apiKey, config.topic, config.slides);
+        data = await generateSlideContent(config.apiKey, config.topic, config.slides, config.themePreset);
       }
 
       setProgress({ percent: 50, status: 'AI content received!' });
