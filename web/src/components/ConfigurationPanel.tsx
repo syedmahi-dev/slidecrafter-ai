@@ -22,7 +22,9 @@ export function ConfigurationPanel({ onGenerate, isGenerating = false }: Configu
   const [topic, setTopic] = useState('');
   const [slides, setSlides] = useState(8);
   const [apiKey, setApiKey] = useState(() => localStorage.getItem('slidecraft_api_key') || '');
-  const [engine, setEngine] = useState<'pptxgenjs' | 'python-pptx'>('pptxgenjs');
+  const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+  const [engine, setEngine] = useState<'pptxgenjs' | 'python-pptx'>(isLocal ? 'pptxgenjs' : 'pptxgenjs');
   const [provider, setProvider] = useState<'gemini' | 'github'>('gemini');
   const [githubModel, setGithubModel] = useState<GitHubModelId>('openai/gpt-4o-mini');
   const [themePreset, setThemePreset] = useState('auto');
@@ -249,7 +251,8 @@ export function ConfigurationPanel({ onGenerate, isGenerating = false }: Configu
           </label>
 
           <label 
-            className={`flex flex-col p-5 rounded-xl border cursor-pointer transition-all hover:scale-[1.02] ${engine === 'python-pptx' ? 'border-accent bg-accent/10 shadow-sm' : 'border-border hover:border-accent/50 bg-background/50'}`}
+            className={`flex flex-col p-5 rounded-xl border transition-all ${!isLocal ? 'opacity-50 cursor-not-allowed bg-background/20 border-border' : 'cursor-pointer hover:scale-[1.02] ' + (engine === 'python-pptx' ? 'border-accent bg-accent/10 shadow-sm' : 'border-border hover:border-accent/50 bg-background/50')}`}
+            title={!isLocal ? "Python compilation is only supported in local development environments." : ""}
           >
             <div className="flex items-center gap-3 mb-2">
               <input 
@@ -257,12 +260,14 @@ export function ConfigurationPanel({ onGenerate, isGenerating = false }: Configu
                 name="engine" 
                 value="python-pptx" 
                 checked={engine === 'python-pptx'}
-                onChange={() => setEngine('python-pptx')}
-                className="w-4 h-4 text-accent focus:ring-accent accent-accent bg-surface border-border"
+                disabled={!isLocal}
+                onChange={() => isLocal && setEngine('python-pptx')}
+                className="w-4 h-4 text-accent focus:ring-accent accent-accent bg-surface border-border disabled:opacity-50"
               />
               <span className="font-bold text-text flex items-center gap-2">
                 <Layers className="w-4 h-4 text-accent" />
                 python-pptx
+                {!isLocal && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-border text-text-muted font-bold tracking-wider uppercase">Local Only</span>}
               </span>
             </div>
             <p className="text-xs text-text-muted ml-7 leading-relaxed">Robust Python compiler for data-heavy decks.</p>

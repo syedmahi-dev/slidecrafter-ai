@@ -116,8 +116,14 @@ function App() {
           body: JSON.stringify(slideData)
         });
         if (!response.ok) {
-          const err = await response.json();
-          throw new Error(err.error || 'Python build failed');
+          let errorText = 'Python build failed';
+          try {
+            const err = await response.json();
+            errorText = err.error || errorText;
+          } catch {
+            errorText = 'Python compilation engine is only available in local development. Please select the browser "pptxgenjs" engine under Parameters to download your slides in production.';
+          }
+          throw new Error(errorText);
         }
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
